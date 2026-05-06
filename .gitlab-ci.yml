@@ -1,0 +1,27 @@
+# Include shared CI
+include:
+    - project: "epi2melabs/ci-templates"
+      file: "wf-containers.yaml"
+
+variables:
+    # We'll use the single-file case for these runs
+    NF_WORKFLOW_OPTS: "--fastq test_data/fastq --sample_sheet test_data/sample_sheet.csv --downsample 50"
+    CI_FLAVOUR: "new"
+    SKIP_PYTHON_TESTS: "not applicable"
+
+docker-run:
+    parallel:
+        matrix:
+          - MATRIX_NAME: [
+            "default", "bad_reference", "no-nextclade"]
+    rules:
+        - if: ($CI_COMMIT_BRANCH == null || $CI_COMMIT_BRANCH == "dev-template")
+          when: never
+        - if: $MATRIX_NAME == "default"
+        - if: $MATRIX_NAME == "bad_reference"
+          variables:
+              NF_WORKFLOW_OPTS: "--fastq test_data/fastq --sample_sheet test_data/sample_sheet.csv --downsample 50 --reference test_data/bad_reference.fasta"
+        - if: $MATRIX_NAME == "no-nextclade"
+          variables:
+              NF_WORKFLOW_OPTS: "--fastq test_data/rbk_fastq --sample_sheet test_data/sample_sheet_rbk.csv --override_basecaller_cfg dna_r10.4.1_e8.2_400bps_hac@v3.5.2"
+              NF_IGNORE_PROCESSES: "nextclade,downSample"
