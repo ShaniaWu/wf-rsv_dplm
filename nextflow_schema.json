@@ -71,7 +71,7 @@
             "fa_icon": "fas fa-arrow-left",
             "description": "Parameters for saving and naming workflow outputs.",
             "properties": {
-                "out_dir": {
+                "outdir": {
                     "type": "string",
                     "title": "Output directory",
                     "default": "output",
