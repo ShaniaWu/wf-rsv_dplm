@@ -538,6 +538,7 @@ process fastcat {
     """
     mkdir fastcat_stats
     mkdir fastq_chunks
+    mkdir histograms
 
     # Save file as compressed fastq
     fastcat \
