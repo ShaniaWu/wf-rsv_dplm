@@ -325,7 +325,7 @@ process output {
     label "wfflu"
     cpus 1
     publishDir (
-        params.out_dir,
+        params.outdir,
         mode: "copy",
         saveAs: { dirname ? "$dirname/$fname" : fname }
     )
