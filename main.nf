@@ -466,7 +466,7 @@ workflow {
     //get reference
     if (params.reference == null){
       params.remove('reference')
-      params._reference = projectDir.resolve("/hpf/largeprojects/pray/microbiology_testing/rsv/data/rsv_reference/rsv_ref.fasta").toString() // swu 
+      params._reference = projectDir.resolve("mounts/project/run-files/rsv/nextclade/rsv_ref.fasta").toString() // swu 
     } else {
       params._reference = file(params.reference, type: "file", checkIfExists:true).toString()
       params.remove('reference')
@@ -475,7 +475,7 @@ workflow {
     //get db
     if (params.blastdb == null){
       params.remove('blastdb')
-      params._blastdb = projectDir.resolve("/hpf/largeprojects/pray/microbiology_testing/rsv/data/rsv_reference/blastdb").toString()
+      params._blastdb = projectDir.resolve("mounts/project/run-files/rsv/nextclade/blastdb").toString()
     } else {
       params._blastdb = file(params.blastdb, type: "directory", checkIfExists:true).toString() 
       params.remove('blastdb')
@@ -485,7 +485,7 @@ workflow {
     // params._nextclade_data = file(params.nextclade_data, type: "directory", checkIfExists:true).toString() 
     if (params.nextclade_data == null){
       params.remove('nextclade_data')
-      params._nextclade_data = projectDir.resolve("/hpf/largeprojects/pray/microbiology_testing/rsv/data/nextclade").toString()
+      params._nextclade_data = projectDir.resolve("/mounts/project/run-files/rsv/nextclade").toString()
     } else {
       params._nextclade_data = file(params.nextclade_data, type: "directory", checkIfExists:true).toString() 
       params.remove('nextclade_data')
