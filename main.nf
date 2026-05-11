@@ -482,7 +482,14 @@ workflow {
     }
 
     //get nextclade_data (swu)
-    params._nextclade_data = file(params.nextclade_data, type: "directory", checkIfExists:true).toString() 
+    // params._nextclade_data = file(params.nextclade_data, type: "directory", checkIfExists:true).toString() 
+    if (params.nextclade_data == null){
+      params.remove('nextclade_data')
+      params._nextclade_data = projectDir.resolve("/hpf/largeprojects/pray/microbiology_testing/rsv/data/nextclade").toString()
+    } else {
+      params._nextclade_data = file(params.nextclade_data, type: "directory", checkIfExists:true).toString() 
+      params.remove('nextclade_data')
+    }
     
     pipeline(samples, params._reference, params._blastdb, params._nextclade_data)
     pipeline.out.results
