@@ -518,6 +518,7 @@ process fastcat {
     label "wf_common"
     cpus 4
     memory "2 GB"
+    scratch = true
     input:
         tuple val(meta), path(input_src, stageAs: "input_src")
         val fcargs
@@ -579,6 +580,7 @@ process checkBamHeaders {
     label "wf_common"
     cpus 1
     memory "2 GB"
+    scratch = true
     input: tuple val(meta), path("input_dir/reads*.bam")
     output:
         tuple(
