@@ -538,7 +538,6 @@ process fastcat {
     """
     mkdir fastcat_stats
     mkdir fastq_chunks
-    mkdir histograms
 
     # Save file as compressed fastq
     fastcat \
@@ -546,7 +545,7 @@ process fastcat {
         -f fastcat_stats/per-file-stats.tsv \
         -i fastcat_stats/per-file-runids.tsv \
         -l fastcat_stats/per-file-basecallers.tsv \
-        --histograms histograms \
+        --histograms fastcat_stats/histograms \
         $stats_args \
         ${fcargs["fastcat_extra_args"]} \
         $input_src \
@@ -555,8 +554,6 @@ process fastcat {
       else
         split -l $lines_per_chunk -d --additional-suffix=.fastq.gz --filter='bgzip -@ $task.cpus > \$FILE' - fastq_chunks/seqs_;
       fi
-
-    mv histograms/* fastcat_stats
 
     # get n_seqs from per-file stats - need to sum them up
     awk 'NR==1{for (i=1; i<=NF; i++) {ix[\$i] = i}} NR>1 {c+=\$ix["n_seqs"]} END{print c}' \
