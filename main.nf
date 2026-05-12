@@ -466,7 +466,7 @@ workflow {
     //get reference
     if (params.reference == null){
       params.remove('reference')
-      params._reference = projectDir.resolve("/data/mounts/project/run-files/rsv/nextclade/rsv_ref.fasta").toString() // swu 
+      params._reference = projectDir.resolve("/data/mounts/project/run-files/rsv/nextclade/rsv_refs.fasta").toString() // swu 
     } else {
       params._reference = file(params.reference, type: "file", checkIfExists:true).toString()
       params.remove('reference')
